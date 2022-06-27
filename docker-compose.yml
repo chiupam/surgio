@@ -1,0 +1,11 @@
+version: "2.0"
+services:
+  surgio:
+    image: chiupam/surgio:latest
+    container_name: surgio
+    restart: unless-stopped
+    hostname: surgio
+    volumes:
+      - $PWD/surgio:/surgio
+    ports:
+      - 3000:3000

@@ -1,0 +1,34 @@
+# 可能被屏蔽
+DOMAIN-KEYWORD,evernote
+
+# Bloomberg
+USER-AGENT,Bloomberg*
+
+# Taiwan
+DOMAIN-SUFFIX,tw
+
+DOMAIN-KEYWORD,bitly
+DOMAIN-KEYWORD,blogspot
+DOMAIN-KEYWORD,dropbox
+DOMAIN-KEYWORD,facebook
+DOMAIN-KEYWORD,gmail
+DOMAIN-KEYWORD,google
+DOMAIN-KEYWORD,instagram
+DOMAIN-KEYWORD,oculus
+DOMAIN-KEYWORD,twitter
+DOMAIN-KEYWORD,whatsapp
+DOMAIN-KEYWORD,youtube
+
+DOMAIN-SUFFIX,cdn.ampproject.org
+DOMAIN-SUFFIX,fb.com
+DOMAIN-SUFFIX,fb.me
+DOMAIN-SUFFIX,fbcdn.net
+DOMAIN-SUFFIX,gstatic.com
+DOMAIN-SUFFIX,scdn.co
+DOMAIN-SUFFIX,t.co
+DOMAIN-SUFFIX,telegra.ph
+DOMAIN-SUFFIX,twimg.co
+DOMAIN-SUFFIX,twimg.com
+DOMAIN-SUFFIX,twitpic.com
+DOMAIN-SUFFIX,youtu.be
+DOMAIN-SUFFIX,ytimg.com
