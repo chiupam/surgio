@@ -7,12 +7,9 @@ start() {
     git clone https://github.com/chiupam/surgio.git /app >/dev/null 2>&1
     git -C /app fetch --all >/dev/null 2>&1
     git -C /app checkout main >/dev/null 2>&1
-    rm -rf /app/.github >/dev/null 2>&1
     rm -rf /app/.idea >/dev/null 2>&1
-    rm -f /app/entrypoint.sh >/dev/null 2>&1
-    rm -f /app/Dockerfile >/dev/null 2>&1
-    rm -f /app/README.md >/dev/null 2>&1
-    rm -f /app/docker-compose.yml >/dev/null 2>&1
+    rm -rf /app/.github >/dev/null 2>&1
+    rm -rf $(ls | egrep -v "go|js|node|provider|template") >/dev/null 2>&1
   fi
   if [ ! -d "$path/surgio/" ]; then
     echo "未检测到 surgio 依赖, 正在安装中, 请耐心等待..."
