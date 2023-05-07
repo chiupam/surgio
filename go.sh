@@ -3,15 +3,13 @@
 config=/app/surgio.conf.js
 
 if [ -n "$(cat $config | grep example.com)" ]; then
-  printf "请输入接口域名："
-  read -r urlBase
+  read -p "请输入接口地址：" -r urlBase
+  sed -i "s/example.com/$urlBase/g" $config
 fi
 
 if [ -n "$(cat $config | grep admin)" ]; then
-  printf "请设置接口密码："
-  read -r passwd
+  read -p "请设置接口密码：" -r passwd
+  sed -i "s/admin/$passwd/g" $config
 fi
 
-sed -i "s/example.com/$urlBase/g" $config
-sed -i "s/admin/$passwd/g" $config
-rm -f /app/go.sh
+rm go.sh

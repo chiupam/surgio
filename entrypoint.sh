@@ -21,8 +21,8 @@ start() {
     npm install @surgio/gateway@latest >/dev/null 2>&1
     rm -f /app/package*.json >/dev/null 2>&1
   fi
-  echo "初始化完成, 正在启动中..."
-  pm2-runtime start /app/ecosystem.config.js >/dev/null 2>&1
+  echo "初始化完成, 正在启动中, 监听文件如有更新则自动重启服务..."
+  pm2-runtime start /app/ecosystem.config.js
 }
 
 start
