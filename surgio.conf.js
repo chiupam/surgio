@@ -105,11 +105,21 @@ module.exports = {
     },
   ],
   urlBase: 'https://example.com/',
-  analytics: false,
   gateway: {
     auth: true,
-    accessToken: 'admin',
+    // 用于调用接口和登录的鉴权码
+    accessToken: 'webToken',
+    /**
+     * 专门用于调用以下三个接口的鉴权码
+     * /get-artifact
+     * /export-providers
+     * /render
+     */
+    viewerToken: 'artifactToken',
+    useCacheOnError: false,
   },
-  proxyTestUrl:'http://www.instagram.com/204',
-  proxyTestInterval:'1200'
+
+  // 非常有限的报错信息收集
+  analytics: false,
 };
+

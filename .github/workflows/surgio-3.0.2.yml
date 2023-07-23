@@ -1,10 +1,7 @@
-name: 构建 surgio(2.19.0) 镜像
+name: 构建 surgio(3.0.2) 镜像
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "main"
 
 jobs:
   docker:
@@ -31,7 +28,7 @@ jobs:
           context: .
           push: true
           file: ./Dockerfile
-          tags: chiupam/surgio:2.19.0
+          tags: chiupam/surgio:3.0.2
           platforms: linux/amd64,linux/arm64
 
       - name: Delete Workflow Runs

@@ -34,5 +34,5 @@ docker-compose up -d
 
 ## 初始化设置
 ```shell
-docker exec -it surgio go.sh
+docker exec -it surgio start.sh
 ```
