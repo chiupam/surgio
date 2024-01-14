@@ -7,7 +7,7 @@
 ```shell
 docker run -dit \
   --name surgio \
-  --restart always \
+  --restart unless-stopped \
   --hostname surgio \
   -v $PWD/surgio:/app \
   -p 3000:3000 \
@@ -22,7 +22,7 @@ services:
   surgio:
     image: chiupam/surgio:latest
     container_name: surgio
-    restart: always
+    restart: unless-stopped
     hostname: surgio
     volumes:
       - $PWD/surgio:/app
