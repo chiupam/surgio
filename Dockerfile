@@ -1,20 +1,26 @@
-FROM alpine:latest
+FROM alpine:3.22
 
-ENV PATH=/usr/local/bin:$PATH LANG=C.UTF-8
+ENV NODE_ENV=production TZ=Asia/Shanghai LANG=C.UTF-8
 
-WORKDIR /app
+WORKDIR /opt/surgio
 
-COPY ./*.sh /app
+COPY app/ /opt/surgio/
 
 RUN set -ex \
-&& apk update -f \
-&& apk upgrade \
-&& apk add --no-cache bash tzdata git npm \
-&& rm -rf /var/cache/apk/* \
-&& ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-&& echo "Asia/Shanghai" > /etc/timezone \
-&& npm install -g pm2@latest \
-&& mv /app/*.sh /usr/local/bin \
-&& chmod +x /usr/local/bin/*.sh
+    && apk add --no-cache nodejs npm tzdata \
+    && npm install --omit=dev --no-audit --no-fund surgio@^3 @surgio/gateway@^2 \
+    && npm cache clean --force \
+    && ln -sf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo "$TZ" > /etc/timezone
+
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENV SURGIO_PROJECT_DIR=/app
+
+EXPOSE 3000
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s \
+    CMD wget -qO- http://127.0.0.1:3000/ >/dev/null 2>&1 || exit 1
 
 ENTRYPOINT ["entrypoint.sh"]

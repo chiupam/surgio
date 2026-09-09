@@ -4,6 +4,11 @@ const { utils } = require('surgio');
 
 /**
  * 使用文档：https://surgio.js.org/
+ *
+ * 面板与接口鉴权通过环境变量注入：
+ *   SURGIO_URL_BASE      对外访问地址，默认 http://localhost:3000/
+ *   SURGIO_WEB_TOKEN     面板登录密码，缺省时自动生成，见容器日志
+ *   SURGIO_VIEWER_TOKEN  订阅接口鉴权码，缺省时自动生成，见容器日志
  */
 module.exports = {
   /**
@@ -18,15 +23,15 @@ module.exports = {
     },
     {
       name: 'telegram', // 模板中对应 remoteSnippets.telegram
-      url: 'https://github.com/DivineEngine/Profiles/raw/master/Surge/Ruleset/Extra/Telegram/Telegram.list'
+      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Telegram/Telegram.list'
     },
     {
       name: 'netflix', // 模板中对应 remoteSnippets.netflix
-      url: 'https://github.com/DivineEngine/Profiles/raw/master/Surge/Ruleset/StreamingMedia/Video/Netflix.list'
+      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Netflix/Netflix.list'
     },
     {
       name: 'hbo', // 模板中对应 remoteSnippets.hbo
-      url: 'https://github.com/DivineEngine/Profiles/raw/master/Surge/Ruleset/StreamingMedia/Video/HBO.list'
+      url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/HBO/HBO.list'
     },
     {
       name: 'disney', // 模板中对应 remoteSnippets.disney
@@ -104,22 +109,21 @@ module.exports = {
       },
     },
   ],
-  urlBase: 'https://example.com/',
+  urlBase: process.env.SURGIO_URL_BASE || 'http://localhost:3000/',
   gateway: {
     auth: true,
-    // 用于调用接口和登录的鉴权码
-    accessToken: 'webToken',
+    // 面板登录密码
+    accessToken: process.env.SURGIO_WEB_TOKEN,
     /**
      * 专门用于调用以下三个接口的鉴权码
      * /get-artifact
      * /export-providers
      * /render
      */
-    viewerToken: 'artifactToken',
+    viewerToken: process.env.SURGIO_VIEWER_TOKEN,
     useCacheOnError: false,
   },
 
   // 非常有限的报错信息收集
   analytics: false,
 };
-

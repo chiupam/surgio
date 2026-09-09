@@ -2,6 +2,8 @@
 
 [**Surgio官网**](https://surgio.js.org/guide.html)
 
+依赖已内置于镜像中，启动即用。配置通过环境变量注入，`/app` 卷内为用户可编辑文件（`surgio.conf.js`、`provider/`、`template/`），修改后服务自动重启。
+
 ## Docker
 
 ```shell
@@ -9,30 +11,42 @@ docker run -dit \
   --name surgio \
   --restart unless-stopped \
   --hostname surgio \
+  -e SURGIO_WEB_TOKEN=your-password \
   -v $PWD/surgio:/app \
   -p 3000:3000 \
   chiupam/surgio:latest
 ```
 
 ## Docker-compose
+
 ```shell
-cat > ./docker-compose.yml << EOF
-version: "2.0"
-services:
-  surgio:
-    image: chiupam/surgio:latest
-    container_name: surgio
-    restart: unless-stopped
-    hostname: surgio
-    volumes:
-      - $PWD/surgio:/app
-    ports:
-      - 3000:3000
-EOF
 docker-compose up -d
 ```
 
-## 初始化设置
+compose 文件示例见仓库根目录。
+
+## 环境变量
+
+| 变量 | 说明 | 缺省行为 |
+| --- | --- | --- |
+| `SURGIO_WEB_TOKEN` | 面板登录密码 | 自动生成，见容器日志 |
+| `SURGIO_VIEWER_TOKEN` | 订阅接口鉴权码（`/get-artifact` 等） | 自动生成，见容器日志 |
+| `SURGIO_URL_BASE` | 对外访问地址 | `http://localhost:3000/` |
+| `PORT` | 服务监听端口 | `3000` |
+
+查看自动生成的密码：
+
 ```shell
-docker exec -it surgio start.sh
+docker logs surgio | grep "已自动生成"
 ```
+
+## 数据持久化
+
+首次启动时，容器会把默认的 `surgio.conf.js`、`provider/`、`template/` 播种到 `/app` 卷中（仅播种缺失的文件，不覆盖已有配置）。之后直接编辑卷内文件即可：
+
+- 修改 `provider/`（订阅）或 `template/`（模板）：自动重启生效
+- 修改 `surgio.conf.js`（artifacts 列表等）：自动重启生效
+
+## 从旧版本升级
+
+旧版本会在卷内安装 `node_modules`，新版启动时会自动将其替换为指向镜像内依赖的软链，无需手动处理。旧版通过 `start.sh` 写入配置的方式已废弃，改为通过环境变量 `SURGIO_WEB_TOKEN` 等注入；如需切换，删除卷内的 `surgio.conf.js` 后重启容器即可重新播种。

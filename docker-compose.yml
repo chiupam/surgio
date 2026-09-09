@@ -1,11 +1,14 @@
-version: "2.0"
 services:
   surgio:
     image: chiupam/surgio:latest
     container_name: surgio
     restart: unless-stopped
     hostname: surgio
+    environment:
+      - SURGIO_WEB_TOKEN=change-me        # 面板登录密码
+      # - SURGIO_URL_BASE=https://xxx.com # 对外访问地址, 缺省 http://localhost:3000/
+      # - SURGIO_VIEWER_TOKEN=xxx         # 订阅接口鉴权码, 缺省自动生成, 见容器日志
     volumes:
-      - $PWD/surgio:/surgio
+      - $PWD/surgio:/app
     ports:
       - 3000:3000
