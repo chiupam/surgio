@@ -7,8 +7,8 @@ const { utils } = require('surgio');
  *
  * 面板与接口鉴权通过环境变量注入：
  *   SURGIO_URL_BASE      对外访问地址，默认 http://localhost:3000/
- *   SURGIO_WEB_TOKEN     面板登录密码，缺省时自动生成，见容器日志
- *   SURGIO_VIEWER_TOKEN  订阅接口鉴权码，缺省时自动生成，见容器日志
+ *   SURGIO_WEB_TOKEN     面板登录密码，仅当 auth 为 true 时需要，缺省自动生成
+ *   SURGIO_VIEWER_TOKEN  订阅接口鉴权码，仅当 auth 为 true 时需要，缺省自动生成
  */
 module.exports = {
   /**

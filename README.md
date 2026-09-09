@@ -29,10 +29,12 @@ compose 文件示例见仓库根目录。
 
 | 变量 | 说明 | 缺省行为 |
 | --- | --- | --- |
-| `SURGIO_WEB_TOKEN` | 面板登录密码 | 自动生成，见容器日志 |
-| `SURGIO_VIEWER_TOKEN` | 订阅接口鉴权码（`/get-artifact` 等） | 自动生成，见容器日志 |
+| `SURGIO_WEB_TOKEN` | 面板登录密码 | 仅当配置启用 `auth: true` 时自动生成 |
+| `SURGIO_VIEWER_TOKEN` | 订阅接口鉴权码（`/get-artifact` 等） | 仅当配置启用 `auth: true` 时自动生成 |
 | `SURGIO_URL_BASE` | 对外访问地址 | `http://localhost:3000/` |
 | `PORT` | 服务监听端口 | `3000` |
+
+内网部署且未启用面板鉴权（`auth: false`）时，无需关心任何 token，日志中也不会出现相关输出。
 
 查看自动生成的密码：
 
