@@ -35,6 +35,8 @@ jobs:
           file: ./Dockerfile
           tags: chiupam/surgio:latest
           platforms: linux/amd64,linux/arm64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: 清理历史运行记录
         uses: Mattraks/delete-workflow-runs@main

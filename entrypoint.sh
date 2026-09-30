@@ -41,4 +41,4 @@ fi
 cd "$APP_DIR"
 
 echo "Surgio 服务启动中, 配置与模板更新会自动重启服务..."
-exec node --watch-path=./template --watch-path=./provider --watch "$SRC_DIR/gateway.js"
+exec node --watch-path=./template --watch-path=./provider --watch-path=./surgio.conf.js --watch "$SRC_DIR/gateway.js"
